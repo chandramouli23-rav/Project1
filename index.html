@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feb 14 - Black Day Tribute</title>
+<link rel="icon" type="image/png" href="bg-soldier.png">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+
+<style>
+*{
+ margin:0;
+ padding:0;
+ box-sizing:border-box;
+ font-family:'Montserrat',sans-serif;
+}
+body{
+ height:100vh;
+ overflow:hidden;
+ color:white;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ position:relative;
+ background:url("index-bg.jpg") center/cover no-repeat;
+}
+body::after{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.9));
+ z-index:0;
+}
+canvas{
+ position:fixed;
+ top:0;
+ left:0;
+ z-index:1;
+}
+.main-layout{
+ position:relative;
+ z-index:2;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ width:92%;
+}
+.chakra-wrapper{
+ width:960px;
+ margin-left:-120px;
+ position:relative;
+}
+.chakra-big{
+ width:100%;
+}
+.chakra-wrapper::before{
+ content:"";
+ position:absolute;
+ top:50%;
+ left:50%;
+ transform:translate(-50%,-50%);
+ width:800px;
+ height:800px;
+ background:radial-gradient(circle, rgba(255,119,0,0.8) 0%, rgba(0,255,102,0.3) 45%, rgba(0,150,255,0.15) 60%, transparent 75%);
+ filter:blur(90px);
+ z-index:-1;
+}
+.container{
+ max-width:520px;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+ height:100vh;
+}
+.feb-image{
+ width:420px;
+ margin-bottom:20px;
+}
+.typing-text{
+ font-size:22px;
+ font-weight:700;
+ letter-spacing:2px;
+ margin-bottom:40px;
+ height:30px;
+}
+.candle-wrapper{
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+}
+.heart-wrapper{
+ position:relative;
+ width:80px;
+ height:110px;
+ margin-bottom:25px;
+}
+.heart{
+ font-size:75px;
+ position:absolute;
+ left:50%;
+ transform:translateX(-50%);
+ top:-10px;
+ transition:0.5s;
+}
+.piece{
+ position:absolute;
+ font-size:75px;
+ top:-10px;
+ left:0;
+ opacity:0;
+}
+.left{
+ clip-path:polygon(0 0, 50% 0, 50% 100%, 0% 100%);
+}
+.right{
+ clip-path:polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+}
+.fall-left{
+ animation:fallLeft 1.5s forwards ease-in;
+}
+.fall-right{
+ animation:fallRight 1.5s forwards ease-in;
+}
+@keyframes fallLeft{
+ 100%{transform:translate(-40px,140px) rotate(-25deg); opacity:0;}
+}
+@keyframes fallRight{
+ 100%{transform:translate(40px,140px) rotate(25deg); opacity:0;}
+}
+.candle{
+ width:60px;
+ height:150px;
+ background:linear-gradient(to bottom,#ff2a2a,#b30000);
+ border-radius:20px;
+ position:relative;
+ box-shadow: inset -8px -10px 20px rgba(0,0,0,0.4),
+             inset 8px 8px 20px rgba(255,255,255,0.2),
+             0 20px 40px rgba(0,0,0,0.6);
+}
+.candle::after{
+ content:"";
+ position:absolute;
+ top:-12px;
+ left:50%;
+ width:4px;
+ height:18px;
+ background:black;
+ transform:translateX(-50%);
+ border-radius:2px;
+}
+.flame{
+ width:26px;
+ height:40px;
+ background: radial-gradient(circle at 50% 30%, #fff8c6 0%, #ffcc00 30%, orange 60%, red 100%);
+ border-radius:50%;
+ position:absolute;
+ top:-50px;
+ left:50%;
+ transform:translateX(-50%);
+ opacity:0;
+ pointer-events:none;
+}
+.flame.active{
+ opacity:1;
+ animation:flicker 0.18s infinite ease-in-out;
+ transform-origin: bottom center;
+ box-shadow: 0 0 25px #ff9900,
+             0 0 60px rgba(255,150,0,0.7),
+             0 0 100px rgba(255,80,0,0.4);
+}
+@keyframes flicker{
+ 0%{ transform:translateX(-50%) scale(1) rotate(-2deg);}
+ 25%{ transform:translateX(-50%) scale(1.05) rotate(2deg);}
+ 50%{ transform:translateX(-50%) scale(1.1) rotate(-1deg);}
+ 75%{ transform:translateX(-50%) scale(1.05) rotate(1deg);}
+ 100%{ transform:translateX(-50%) scale(1) rotate(-2deg);}
+}
+button{
+ position:relative;
+ padding:14px 40px;
+ border-radius:50px;
+ background:#111;
+ color:white;
+ font-weight:700;
+ letter-spacing:1px;
+ cursor:pointer;
+ margin-top:30px;
+ border:2px solid transparent;
+ transition:0.3s;
+ z-index:1;
+}
+button::before{
+ content:"";
+ position:absolute;
+ inset:-2px;
+ border-radius:50px;
+ background:linear-gradient(45deg,#ff0000,#ff7300,#ff0000,#ff7300);
+ background-size:400%;
+ z-index:-1;
+ animation:glowBorder 6s linear infinite;
+}
+@keyframes glowBorder{
+ 0%{background-position:0%;}
+ 100%{background-position:400%;}
+}
+button:hover{
+ transform:scale(1.08);
+}
+/* Intro Black Screen */
+#introScreen{
+ position:fixed;
+ inset:0;
+ background:black;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ z-index:9999;
+ transition:1s ease;
+}
+
+#enterBtn{
+ width:190px;
+ height:190px;
+ border-radius:50%;
+ border:none;
+ cursor:pointer;
+
+ /* Silver Look */
+ background:radial-gradient(circle at 30% 30%, #f5f5f5, #c0c0c0 40%, #8e8e8e 70%);
+ color:black;
+ font-size:18px;
+ font-weight:800;
+ letter-spacing:2px;
+
+ box-shadow:
+   inset -8px -8px 15px rgba(0,0,0,0.3),
+   inset 8px 8px 15px rgba(255,255,255,0.6),
+   0 0 20px rgba(255,255,255,0.4);
+
+ transition:0.4s ease;
+ position:relative;
+ overflow:hidden;
+}
+
+/* Hover → Orange */
+#enterBtn:hover{
+ background:radial-gradient(circle at 30% 30%, #ffcc80, #ff8800 60%, #cc5500);
+ color:white;
+ box-shadow:
+   0 0 25px rgb(51, 255, 0),
+   0 0 50px rgba(0, 255, 34, 0.69);
+ transform:scale(1.08);
+}
+
+/* Click Glow Animation */
+#enterBtn.clicked{
+ animation:triGlow 1s forwards;
+}
+
+@keyframes triGlow{
+ 0%{
+   box-shadow:
+     0 0 20px orange,
+     0 0 40px white,
+     0 0 60px rgb(8, 209, 8);
+ }
+ 100%{
+   box-shadow:
+     0 0 80px orange,
+     0 0 120px white,
+     0 0 160px green;
+   transform:scale(1.2);
+   opacity:0;
+ }
+}
+/* Intro Text */
+.intro-text{
+ position:absolute;
+ top:20%;
+ text-align:center;
+ width:100%;
+}
+
+.date{
+ font-size:50px;
+ letter-spacing:6px;
+ margin-bottom:15px;
+ color:white;
+}
+
+/* Tricolor Words */
+.tri-words{
+ font-size:20px;
+ font-weight:800;
+ letter-spacing:4px;
+}
+
+.orange{ color:#ff9933; }
+.white{ color:#ffffff; }
+.green{ color:#138808; }
+
+.tri-words span{
+ margin:0 10px;
+}
+</style>
+</head>
+
+<body>
+  <div id="introScreen">
+
+  <div class="intro-text">
+    <h1 class="date">FEB-14</h1>
+    <div class="tri-words">
+      <span class="orange">REMEMBER</span>
+      <span class="white">RESPECT</span>
+      <span class="green">EXIT</span>
+    </div>
+  </div>
+
+  <button id="enterBtn">TAP TO ENTER</button>
+
+</div>
+<audio id="indexAudio">
+  <source src="index-music.mp3" type="audio/mpeg">
+</audio>
+<canvas id="particles"></canvas>
+
+<div class="main-layout">
+<div class="chakra-wrapper">
+<img src="chakram.png" class="chakra-big">
+</div>
+
+<div class="container">
+<img src="FEB14.png" class="feb-image">
+<div class="typing-text" id="typing"></div>
+
+<div class="candle-wrapper">
+<div class="heart-wrapper">
+<div class="heart" id="mainHeart">❤️</div>
+<div class="piece left" id="leftPiece">💔</div>
+<div class="piece right" id="rightPiece">💔</div>
+</div>
+
+<div class="candle">
+<div class="flame" id="flame"></div>
+</div>
+
+<button onclick="startTribute()">Light the Candle</button>
+</div>
+</div>
+</div>
+
+<script>
+
+const text = "Black Day - Pulwama Attack";
+let index = 0;
+const typingElement = document.getElementById("typing");
+
+window.addEventListener("load", () => {
+ setTimeout(() => {
+  typeEffect();
+ }, 2000);
+});
+
+function typeEffect(){
+ if(index < text.length){
+  typingElement.innerHTML += text.charAt(index);
+  index++;
+  setTimeout(typeEffect, 80);
+ }
+}
+
+function startTribute(){
+ const flame = document.getElementById("flame");
+ const mainHeart = document.getElementById("mainHeart");
+ const leftPiece = document.getElementById("leftPiece");
+ const rightPiece = document.getElementById("rightPiece");
+
+ flame.classList.add("active");
+
+ setTimeout(()=>{
+  mainHeart.style.opacity="0";
+  leftPiece.style.opacity="1";
+  rightPiece.style.opacity="1";
+  leftPiece.classList.add("fall-left");
+  rightPiece.classList.add("fall-right");
+ },1500);
+
+ setTimeout(()=>{
+  window.location.href="tribute.html";
+ },3500);
+}
+
+/* Particles */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+ canvas.width=window.innerWidth;
+ canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+let particles=[];
+for(let i=0;i<100;i++){
+ particles.push({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  r:Math.random()*2,
+  speed:Math.random()*0.6+0.2
+ });
+}
+
+function animate(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ ctx.fillStyle="rgba(255,255,255,0.6)";
+ particles.forEach(p=>{
+  ctx.beginPath();
+  ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+  ctx.fill();
+  p.y-=p.speed;
+  if(p.y<0){
+   p.y=canvas.height;
+   p.x=Math.random()*canvas.width;
+  }
+ });
+ requestAnimationFrame(animate);
+}
+animate();
+window.addEventListener("load", function(){
+  const audio = document.getElementById("indexAudio");
+  
+  audio.volume = 0.6;
+
+  // Play muted first
+  audio.play().then(()=>{
+      // Unmute after small delay
+      setTimeout(()=>{
+          audio.muted = false;
+      },500);
+  }).catch(()=>{});
+});
+const introScreen = document.getElementById("introScreen");
+const enterBtn = document.getElementById("enterBtn");
+const audio = document.getElementById("indexAudio");
+
+enterBtn.addEventListener("click", function(){
+
+  // Play Music
+  audio.volume = 0.6;
+  audio.play();
+
+  // Fade out intro
+  introScreen.style.opacity = "0";
+
+  setTimeout(()=>{
+    introScreen.style.display = "none";
+  },1000);
+
+});
+enterBtn.addEventListener("click", function(){
+
+  audio.volume = 0.6;
+  audio.play();
+
+  // Add glow animation
+  enterBtn.classList.add("clicked");
+
+  setTimeout(()=>{
+    introScreen.style.opacity="0";
+  },600);
+
+  setTimeout(()=>{
+    introScreen.style.display="none";
+  },1600);
+
+});
+</script>
+
+</body>
+</html>

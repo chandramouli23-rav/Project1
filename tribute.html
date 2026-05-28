@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tribute</title>
+<link rel="icon" type="image/png" href="bg-soldier.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+html,body{
+width:100%;
+overflow-x:hidden;
+overflow-y:auto;
+background:#000;
+color:#fff;
+scroll-behavior:smooth;
+}
+
+/* ================= INTRO ================= */
+
+/* ================= INTRO ================= */
+
+/* ================= INTRO FIXED ================= */
+
+#intro{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+
+background:
+radial-gradient(circle at 20% 50%, rgba(255,153,51,0.6), transparent 40%),
+radial-gradient(circle at 80% 50%, rgba(19,136,8,0.6), transparent 40%),
+black;
+
+animation: introFade 3s ease forwards 3s;
+}
+
+/* Zoom */
+#intro h1{
+font-size:70px;
+letter-spacing:10px;
+text-shadow:
+0 0 20px #ff9933,
+0 0 40px white,
+0 0 60px #138808;
+animation: zoomIn 3s ease;
+}
+
+@keyframes zoomIn{
+0%{opacity:0; transform:scale(0.5);}
+100%{opacity:1; transform:scale(1);}
+}
+
+/* IMPORTANT FIX */
+@keyframes introFade{
+to{
+opacity:0;
+visibility:hidden;
+pointer-events:none;
+}
+}
+
+
+
+/* ================= HERO ================= */
+
+.hero{
+height:100vh;
+position:relative;
+display:flex;
+align-items:center;
+justify-content:flex-end;
+overflow:hidden;
+}
+
+/* Background Video FULL FIT */
+.bg-video{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:0;
+}
+
+/* Overlay */
+.overlay{
+position:absolute;
+inset:0;
+background:rgba(0,0,0,0.4);
+z-index:1;
+}
+
+/* Soldier */
+.soldier-img{
+position:absolute;
+bottom:0;
+left:3%;
+height:85%;
+z-index:2;
+}
+
+/* Hero Text */
+.hero-text{
+position:relative;
+z-index:2;
+max-width:600px;
+margin-right:5%;   /* instead of padding */
+text-align:right;
+}
+
+
+.hero-text h1{
+font-size:60px;
+font-weight:800;
+}
+
+.hero-text p{
+margin-top:15px;
+font-size:22px;
+color:#ddd;
+}
+
+
+/* ================= MARTYRS SECTION ================= */
+
+.martyrs-section{
+  position:relative;
+  background:#242121;
+  padding:100px 20px;
+  text-align:center;
+  overflow:hidden;
+}
+
+/* Background Soldier PNG */
+.martyrs-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url("bg-soldier.png") center/contain no-repeat;
+  opacity:0.08;
+  z-index:0;
+}
+
+/* Keep content above background */
+.martyrs-section > *{
+  position:relative;
+  z-index:1;
+}
+
+/* Heading */
+.martyrs-title{
+  font-size:50px;
+  font-weight:800;
+  margin-bottom:70px;
+}
+
+/* Tricolor Text */
+.orange{ color:#ff9933; }
+.white{ color:#ffffff; }
+.green{ color:#138808; }
+
+/* Grid Layout */
+.martyrs-row{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:40px;
+  width:85%;
+  margin:auto;
+}
+
+/* Image Card */
+.martyrs-row img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  display:block;
+  padding:10px;
+  background:#111;
+  box-sizing:border-box;
+
+  /* Tricolor Border */
+  border:4px solid transparent;
+  background:
+    linear-gradient(#111,#111) padding-box,
+    linear-gradient(90deg,#ff9933,white,#138808,#ff9933) border-box;
+
+  background-size:300% 300%;
+
+  animation:
+    borderRotate 5s linear infinite,
+    autoZoom 18s infinite;
+
+  transition:0.5s ease;
+}
+
+/* Rotating Border */
+@keyframes borderRotate{
+  0%{background-position:0% 50%;}
+  100%{background-position:100% 50%;}
+}
+
+/* Automatic Zoom + Dark Effect */
+@keyframes autoZoom{
+
+  0%,16%{
+    transform:scale(1);
+    filter:none;
+  }
+
+  20%,32%{
+    transform:scale(1.1);
+    filter:grayscale(100%) brightness(0.5);
+  }
+
+  36%,100%{
+    transform:scale(1);
+    filter:none;
+  }
+}
+
+/* Delay for One-by-One Animation */
+.martyrs-row img:nth-child(1){ animation-delay:0s; }
+.martyrs-row img:nth-child(2){ animation-delay:3s; }
+.martyrs-row img:nth-child(3){ animation-delay:6s; }
+.martyrs-row img:nth-child(4){ animation-delay:9s; }
+.martyrs-row img:nth-child(5){ animation-delay:12s; }
+.martyrs-row img:nth-child(6){ animation-delay:15s; }
+
+
+/* ================= TRIBUTE SECTION ================= */
+
+/* ================= TRIBUTE SECTION ================= */
+
+.tribute-section{
+  position:relative;
+  padding:225px 8%;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+/* Background Video */
+.bg-video{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:0;
+}
+
+/* Dark Overlay */
+.tribute-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.75);
+  z-index:1;
+}
+
+/* Content */
+.tribute-content{
+  position:relative;
+  z-index:2;
+  max-width:800px;
+  text-align:center;
+}
+
+/* Heading */
+.tribute-content h2{
+  font-size:45px;
+  color:red;
+  margin-bottom:30px;
+  animation:fadeInDown 1.5s ease;
+}
+
+/* Paragraph */
+.tribute-content p{
+  font-size:23px;
+  line-height:1.8;
+  color:#ddd;
+  margin:0;
+}
+
+/* Typing text cursor effect */
+#typing-text::after{
+  content:"|";
+  animation:blink 1s infinite;
+}
+
+@keyframes blink{
+  0%{opacity:1;}
+  50%{opacity:0;}
+  100%{opacity:1;}
+}
+
+/* Heading animation */
+@keyframes fadeInDown{
+  from{
+    opacity:0;
+    transform:translateY(-30px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+
+
+/* ================= SOLDIER SLIDER ================= */
+
+.soldier-section{
+background:#000;
+padding:0;
+}
+
+.soldier-wrapper{
+width:100%;
+padding:6px;
+background:linear-gradient(90deg,#ff9933,white,#138808,#ff9933);
+background-size:300% 300%;
+animation:borderRotate 6s linear infinite;
+}
+
+@keyframes borderRotate{
+0%{background-position:0% 50%;}
+100%{background-position:100% 50%;}
+}
+
+.soldier-slider{
+width:100%;
+height:320px;
+overflow:hidden;
+background:#111;
+}
+
+.soldier-track{
+display:flex;
+animation:scrollLeft 25s linear infinite;
+}
+
+.soldier-track img{
+width:16.66%;
+height:320px;
+object-fit:contain;
+flex-shrink:0;
+filter:drop-shadow(0 0 6px white);
+}
+
+@keyframes scrollLeft{
+0%{transform:translateX(0);}
+100%{transform:translateX(-100%);}
+}
+
+/* ================= FINAL SECTION ================= */
+/* ================= FINAL SECTION CINEMATIC ================= */
+
+.final-section{
+  position:relative;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  overflow:hidden;
+
+  background-image:url("flag.png");
+  background-size:470px;
+  background-position:center bottom;
+  background-repeat:no-repeat;
+
+  animation:zoomIn 4s ease forwards;
+}
+
+/* Cinematic Zoom */
+@keyframes zoomIn{
+  from{
+    transform:scale(1.15);
+    opacity:0;
+  }
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+
+/* Dark Overlay */
+.final-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.7);
+  z-index:0;
+}
+
+/* Ashoka Chakra faint background */
+.chakra-bg{
+  position:absolute;
+  width:400px;
+  height:400px;
+  background:url("chakra.png") center/contain no-repeat;
+  opacity:0.05;
+  z-index:0;
+  animation:rotateChakra 40s linear infinite;
+}
+
+@keyframes rotateChakra{
+  from{ transform:rotate(0deg); }
+  to{ transform:rotate(360deg); }
+}
+
+/* Content Above */
+.final-heading,
+.final-section p,
+.salute{
+  position:relative;
+  z-index:1;
+}
+
+/* Heading */
+.final-heading{
+  font-size:70px;
+  font-weight:900;
+  letter-spacing:6px;
+  position:relative;
+  overflow:hidden;
+}
+
+/* Small IN */
+.small-in{
+  font-size:36px;
+  color:white;
+  margin:0 6px;
+}
+
+/* INDIA */
+.india{
+  color:#ff9933;
+  border-bottom:3px solid #ff9933;
+  padding-bottom:5px;
+}
+
+/* REMEMBERS */
+.remembers{
+  color:#138808;
+  border-bottom:3px solid #138808;
+  padding-bottom:5px;
+}
+
+/* Slow Shining Tricolor Sweep */
+.final-heading::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255,153,51,0.4) 30%,
+    rgba(255,255,255,0.6) 50%,
+    rgba(19,136,8,0.4) 70%,
+    transparent 100%
+  );
+  animation:shine 6s infinite;
+}
+
+@keyframes shine{
+  0%{ left:-100%; }
+  100%{ left:100%; }
+}
+
+/* Paragraph */
+.final-section p{
+  margin-top:30px;
+  font-size:22px;
+  color:white;
+  opacity:0;
+  animation:fadeUp 3s ease forwards;
+  animation-delay:2s;
+}
+
+@keyframes fadeUp{
+  from{
+    transform:translateY(30px);
+    opacity:0;
+  }
+  to{
+    transform:translateY(0);
+    opacity:1;
+  }
+}
+
+/* Salute Animation */
+.salute{
+  margin-top:50px;
+  font-size:26px;
+  color:white;
+  letter-spacing:3px;
+  opacity:0;
+  animation:saluteShow 3s ease forwards;
+  animation-delay:4s;
+}
+
+@keyframes saluteShow{
+  from{
+    opacity:0;
+    transform:translateY(40px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+/* Contact Floating Button */
+.final-section{
+  position:relative;   /* VERY IMPORTANT */
+}
+
+.contact-btn{
+  position:absolute;
+  bottom:30px;
+  right:30px;
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  background:radial-gradient(circle,#ffffff,#cfcfcf);
+  color:black;
+  font-size:28px;
+  font-weight:bold;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  transition:0.4s ease;
+  box-shadow:0 0 15px rgba(255,255,255,0.6);
+}
+
+/* Hover Effect */
+.contact-btn:hover{
+  background:linear-gradient(45deg,orange,white,green);
+  box-shadow:
+     0 0 15px orange,
+     0 0 25px white,
+     0 0 35px green;
+  transform:scale(1.1);
+}
+
+
+
+</style>
+</head>
+<script>
+window.addEventListener("load", function(){
+  const audio = document.getElementById("tributeAudio");
+  audio.volume = 0.6;
+  audio.play().catch(()=>{});
+});
+document.addEventListener("DOMContentLoaded", function () {
+
+  const text = "Their courage and patriotism will inspire generations forever.";
+  const typingElement = document.getElementById("typing-text");
+  const section = document.querySelector(".tribute-section");
+
+  let started = false;
+
+  function typeEffect() {
+    let i = 0;
+    function typing() {
+      if (i < text.length) {
+        typingElement.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typing, 40);  // speed
+      }
+    }
+    typing();
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !started) {
+        started = true;
+        typeEffect();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  observer.observe(section);
+
+});
+
+const contactBtn = document.querySelector(".contact-btn");
+const finalSection = document.querySelector(".final-section");
+
+window.addEventListener("scroll", function() {
+
+  const rect = finalSection.getBoundingClientRect();
+
+  // If final section top enters viewport
+  if(rect.top <= window.innerHeight - 100){
+      contactBtn.classList.add("show");
+  } else {
+      contactBtn.classList.remove("show");
+  }
+
+});
+
+
+</script>
+
+
+<body>
+
+<audio id="tributeAudio" autoplay>
+  <source src="tribute-music1.mp3" type="audio/mp3">
+</audio>
+
+<div id="intro"><h1>WE REMEMBER</h1></div>
+
+<!-- HERO -->
+<section class="hero">
+<video autoplay muted loop playsinline class="bg-video">
+<source src="flag.mp4" type="video/mp4">
+</video>
+<div class="overlay"></div>
+
+<img src="solider.png" class="soldier-img">
+
+<div class="hero-text">
+<h1>February 14, 2019</h1>
+<p>Pulwama Attack Tribute 🇮🇳</p>
+</div>
+</section>
+
+<section class="martyrs-section">
+
+<h2 class="martyrs-title">
+  40 Brave 
+  <span class="orange">CRPF</span> 
+  <span class="white">Soldiers</span> 
+  <span class="green">Martyred</span>
+</h2>
+
+<div class="martyrs-row">
+  <img src="img1.jpg">
+  <img src="img2.jpg">
+  <img src="img3.jpg">
+  <img src="img4.jpg">
+  <img src="img5.jpg">
+  <img src="img6.jpg">
+</div>
+
+</section>
+
+
+<section class="tribute-section">
+
+  <!-- Background Video -->
+  <video autoplay muted loop playsinline class="bg-video">
+    <source src="tribute-video.mp4" type="video/mp4">
+  </video>
+
+  <div class="tribute-content">
+    <h2>Their Sacrifice Lives Forever</h2>
+
+    <p>
+      On February 14, 2019, 40 brave CRPF soldiers laid down their lives for our nation.
+      <br><br>
+      <span id="typing-text"></span>
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- SOLDIER PNG SLIDER -->
+<section class="soldier-section">
+<div class="soldier-wrapper">
+<div class="soldier-slider">
+<div class="soldier-track">
+<img src="s1.png">
+<img src="s2.png">
+<img src="s3.png">
+<img src="s4.png">
+<img src="s5.png">
+<img src="s6.png">
+<img src="s1.png">
+<img src="s2.png">
+<img src="s3.png">
+<img src="s4.png">
+<img src="s5.png">
+<img src="s6.png">
+</div>
+</div>
+</div>
+</section>
+<section class="final-section">
+
+  <!-- Ashoka Chakra Background -->
+  <div class="chakra-bg"></div>
+
+  <h1 class="final-heading">
+    <span class="small-in">IN</span>
+    <span class="india">INDIA</span>
+    <span class="remembers">REMEMBERS</span>
+    <span class="small-in">IN</span>
+  </h1>
+
+  <p>
+    A nation stands united in grief and pride.<br>
+    Forever in our hearts.
+  </p>
+
+  <!-- Salute Line -->
+  <div class="salute">🇮🇳 SALUTE TO OUR HEROES 🇮🇳</div>
+   <a href="contact.html" class="contact-btn">></a>
+
+</section>
+
+</body>
+</html>

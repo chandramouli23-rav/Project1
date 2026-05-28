@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Contact</title>
+<link rel="icon" type="image/png" href="favicon.png">
+
+<style>
+*{
+ margin:0;
+ padding:0;
+ box-sizing:border-box;
+ font-family:'Montserrat',sans-serif;
+}
+
+/* Premium Animated Tricolor Background */
+body{
+ min-height:100vh;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ overflow:hidden;
+ background:linear-gradient(-45deg,#000000,#1a1a1a,#ff9933,#138808);
+ background-size:400% 400%;
+ animation:gradientMove 15s ease infinite;
+}
+
+@keyframes gradientMove{
+ 0%{background-position:0% 50%;}
+ 50%{background-position:100% 50%;}
+ 100%{background-position:0% 50%;}
+}
+
+/* Fire Canvas */
+canvas{
+ position:fixed;
+ top:0;
+ left:0;
+ z-index:0;
+}
+
+/* Cursor Glow */
+.cursor{
+ position:fixed;
+ width:18px;
+ height:18px;
+ border-radius:50%;
+ background:radial-gradient(circle,#ff9933,white,#138808);
+ pointer-events:none;
+ mix-blend-mode:screen;
+ z-index:9999;
+}
+
+/* Glass Card */
+.wrapper{
+ position:relative;
+ z-index:1;
+ padding:50px;
+ border-radius:25px;
+ width:90%;
+ max-width:800px;
+ backdrop-filter:blur(15px);
+ background:rgba(0,0,0,0.6);
+ border:3px solid transparent;
+ background:
+   linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)) padding-box,
+   linear-gradient(90deg,#ff9933,white,#138808,#ff9933) border-box;
+ background-size:300% 300%;
+ animation:borderMove 6s linear infinite;
+ text-align:center;
+ transition:transform 0.2s ease;
+}
+
+@keyframes borderMove{
+ 0%{background-position:0% 50%;}
+ 100%{background-position:100% 50%;}
+}
+
+/* Scroll Reveal */
+.reveal{
+ opacity:0;
+ transform:translateY(40px);
+ transition:1s ease;
+}
+
+.reveal.active{
+ opacity:1;
+ transform:translateY(0);
+}
+
+.main-heading{
+ font-size:42px;
+ font-weight:900;
+ margin-bottom:15px;
+}
+
+.orange{color:#ff9933;}
+.white{color:white;}
+.green{color:#138808;}
+
+.tagline{
+ margin-bottom:30px;
+ color:#ddd;
+}
+
+.contact-heading{
+ margin-top:20px;
+ font-size:26px;
+}
+
+.contact-sub{
+ margin-bottom:20px;
+ color:#ccc;
+}
+
+a{
+ color:#ff9933;
+ text-decoration:none;
+ font-weight:bold;
+}
+
+a:hover{
+ color:#138808;
+}
+
+.numbers{
+ line-height:1.8;
+ margin-bottom:20px;
+}
+
+/* Buttons */
+.btn{
+ padding:10px 25px;
+ border-radius:30px;
+ border:none;
+ cursor:pointer;
+ font-weight:700;
+ margin:10px;
+ transition:0.3s;
+}
+
+.whatsapp{
+ background:#25D366;
+ color:white;
+}
+
+.whatsapp:hover{
+ transform:scale(1.1);
+ box-shadow:0 0 20px #25D366;
+}
+
+.back{
+ background:#ff9933;
+ color:black;
+}
+
+.back:hover{
+ background:#138808;
+ color:white;
+ transform:scale(1.1);
+}
+
+.closing{
+ margin-top:25px;
+ font-size:14px;
+ color:#aaa;
+ font-style:italic;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background Music -->
+<audio id="bgMusic" autoplay loop>
+  <source src="instrumental.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="fire"></canvas>
+<div class="cursor"></div>
+
+<div class="wrapper">
+
+<h1 class="main-heading reveal">
+ <span class="orange">THANKS</span>
+ <span class="white">FOR</span>
+ <span class="green">VISITING</span>
+</h1>
+
+<p class="tagline reveal">
+ This is a proud moment for India. We stand united in remembrance and respect.
+</p>
+
+<h2 class="contact-heading reveal">Contact Us</h2>
+
+<p class="contact-sub reveal">
+ If you want our services, don’t wait — let’s build something amazing together!
+</p>
+
+<p class="reveal">
+ Instagram:
+ <a href="https://www.instagram.com/freelancer_tnx?igsh=NnBua3AyeHA4Njd6" target="_blank">
+ @freelancer_tnx
+ </a>
+</p>
+
+<div class="numbers reveal">
+ 📞 8008410162 <br>
+ 📞 6305033178 <br>
+ 📞 7842652644
+</div>
+
+<div class="reveal">
+ <a href="https://wa.me/918008410162" target="_blank">
+   <button class="btn whatsapp">WhatsApp Us</button>
+ </a>
+
+ <a href="index.html">
+   <button class="btn back">Back to Tribute</button>
+ </a>
+</div>
+
+<p class="closing reveal">
+ We don’t just build websites… we build digital swag 😎🔥  
+ From tribute pages to business pages — we turn ideas into reality.
+</p>
+
+</div>
+
+<script>
+
+/* 🔥 Fire Sparks */
+const canvas=document.getElementById("fire");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+ canvas.width=window.innerWidth;
+ canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+let sparks=[];
+for(let i=0;i<120;i++){
+ sparks.push({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  size:Math.random()*3,
+  speed:Math.random()*1+0.5
+ });
+}
+
+function animate(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ ctx.fillStyle="orange";
+ sparks.forEach(s=>{
+  ctx.beginPath();
+  ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
+  ctx.fill();
+  s.y-=s.speed;
+  if(s.y<0){
+   s.y=canvas.height;
+   s.x=Math.random()*canvas.width;
+  }
+ });
+ requestAnimationFrame(animate);
+}
+animate();
+
+/* 🎵 Music Fade In */
+const music = document.getElementById("bgMusic");
+music.volume = 0;
+music.play().then(()=>{
+ let vol=0;
+ const fade=setInterval(()=>{
+   if(vol<0.6){
+     vol+=0.02;
+     music.volume=vol;
+   }else{
+     clearInterval(fade);
+   }
+ },200);
+}).catch(()=>{});
+
+/* ✨ Cursor Glow */
+const cursor=document.querySelector(".cursor");
+document.addEventListener("mousemove",(e)=>{
+ cursor.style.left=e.clientX+"px";
+ cursor.style.top=e.clientY+"px";
+});
+
+/* 🌀 3D Tilt */
+const card=document.querySelector(".wrapper");
+card.addEventListener("mousemove",(e)=>{
+ const rect=card.getBoundingClientRect();
+ const x=e.clientX-rect.left;
+ const y=e.clientY-rect.top;
+ const centerX=rect.width/2;
+ const centerY=rect.height/2;
+ const rotateX=-(y-centerY)/20;
+ const rotateY=(x-centerX)/20;
+ card.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+});
+card.addEventListener("mouseleave",()=>{
+ card.style.transform="rotateX(0) rotateY(0)";
+});
+
+/* 🌟 Scroll Reveal */
+const reveals=document.querySelectorAll(".reveal");
+window.addEventListener("scroll",()=>{
+ reveals.forEach(r=>{
+  const windowHeight=window.innerHeight;
+  const revealTop=r.getBoundingClientRect().top;
+  if(revealTop < windowHeight-50){
+   r.classList.add("active");
+  }
+ });
+});
+window.dispatchEvent(new Event("scroll"));
+
+</script>
+
+</body>
+</html>
